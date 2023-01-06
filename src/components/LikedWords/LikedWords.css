@@ -1,0 +1,12 @@
+#aStyle {
+    text-decoration: none;
+}
+
+#imgStyle {
+    width: 100%;
+}
+
+#styled {
+    display: flex;
+    flex-direction: column;
+}

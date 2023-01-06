@@ -3,7 +3,7 @@ import { TextField, Button, Typography, Card } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { auth } from '../../helpers/firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-// import "./LoginForm.css";
+import "./LoginForm.css";
 import { LoginFormData } from '../../helpers/interfaces';
 
 

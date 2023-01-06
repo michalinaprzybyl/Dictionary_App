@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Typography, TextField, Button } from "@mui/material";
 import { auth } from '../../helpers/firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-// import "./RegisterForm.css";
+import "./RegisterForm.css";
 import { useForm } from 'react-hook-form';
 import { RegisterFormData } from '../../helpers/interfaces';
 
