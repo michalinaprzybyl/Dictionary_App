@@ -1,0 +1,5 @@
+#formStyle {
+    display: flex;
+    flex-direction: column;
+    margin-top: 7px;
+}

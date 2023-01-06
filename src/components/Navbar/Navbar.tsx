@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect, useContext } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,18 +11,36 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-// import { ThemeProvider, createTheme } from '@mui/system';
+import { Link } from 'react-router-dom';
+import { authContext } from '../../helpers/authContext';
+import { auth, storage } from '../../helpers/firebaseConfig';
+import { getDownloadURL, ref } from 'firebase/storage';
 
 const pages = ['Home', 'Search'];
-const settings = ['Profile', 'Logout'];
 
 const Navbar = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const loggedIn = useContext(authContext);
+
+    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+    const [profilePhoto, setProfilePhoto] = useState<string | undefined>('/')
+
+    useEffect(() => {
+        if (loggedIn && auth.currentUser) {
+            const storageRef = ref(storage, `/users/${auth.currentUser.uid}/profilePhoto`);
+
+            getDownloadURL(storageRef)
+                .then((url) => setProfilePhoto(url))
+                .catch((err) => console.error(err.message));
+            // lub
+            // .catch((err) => setProfilePhoto(undefined)); do renderowania warunkowego
+        }
+    }, [loggedIn]);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
     };
+
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -31,27 +49,9 @@ const Navbar = () => {
         setAnchorElNav(null);
     };
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
-    // const theme = createTheme({
-    //     palette: {
-    //         background: {
-    //             paper: '#fff',
-    //         },
-    //         text: {
-    //             primary: '#173A5E',
-    //             secondary: '#46505A',
-    //         },
-    //         action: {
-    //             active: '#001E3C',
-    //         },
-    //         success: {
-    //             dark: '#009688',
-    //         },
-    //     },
-    // });
+    // const handleCloseUserMenu = () => {
+    //     setAnchorElUser(null);
+    // };
 
     return (
         <AppBar position="static">
@@ -104,11 +104,16 @@ const Navbar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                            <Link to='/' style={{ textDecoration: "none", color: "black" }}>
+                                <MenuItem onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">Home</Typography>
                                 </MenuItem>
-                            ))}
+                            </Link>
+                            <Link to='/search' style={{ textDecoration: "none", color: "black" }}>
+                                <MenuItem onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">Search</Typography>
+                                </MenuItem>
+                            </Link>
                         </Menu>
                     </Box>
                     <Typography
@@ -127,7 +132,7 @@ const Navbar = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        Dictionary App
+                        Dictionary App2
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
@@ -142,33 +147,11 @@ const Navbar = () => {
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
+                        <Link to={loggedIn ? '/user' : '/login'} style={{ textDecoration: "none" }}>
+                            {loggedIn ? <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar alt="Remy Sharp" src={profilePhoto} />
+                            </IconButton> : <Button sx={{ my: 2, color: "white", display: "block" }}>Log in</Button>}
+                        </Link>
                     </Box>
                 </Toolbar>
             </Container>
