@@ -15,8 +15,11 @@ import { Link } from 'react-router-dom';
 import { authContext } from '../../helpers/authContext';
 import { auth, storage } from '../../helpers/firebaseConfig';
 import { getDownloadURL, ref } from 'firebase/storage';
+import { signOut } from 'firebase/auth';
+import HomePage from '../HomePage/HomePage';
 
-const pages = ['Home', 'Search'];
+// const pages = ['Home', 'Search'];
+const settings = ['Profile', 'Logout'];
 
 const Navbar = () => {
     const loggedIn = useContext(authContext);
@@ -49,12 +52,12 @@ const Navbar = () => {
         setAnchorElNav(null);
     };
 
-    // const handleCloseUserMenu = () => {
-    //     setAnchorElUser(null);
-    // };
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{ backgroundColor: "#81007F" }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -132,10 +135,10 @@ const Navbar = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        Dictionary App2
+                        Dictionary App
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                        {/* {pages.map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
@@ -143,19 +146,65 @@ const Navbar = () => {
                             >
                                 {page}
                             </Button>
-                        ))}
+                        ))} */}
+                        <Link to='/' style={{ textDecoration: "none", color: 'white', display: 'block' }}>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">Home</Typography>
+                            </MenuItem>
+                        </Link>
+                        <Link to='/search' style={{ textDecoration: "none", color: 'white', display: 'block' }}>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">Search</Typography>
+                            </MenuItem>
+                        </Link>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Link to={loggedIn ? '/user' : '/login'} style={{ textDecoration: "none" }}>
-                            {loggedIn ? <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src={profilePhoto} />
-                            </IconButton> : <Button sx={{ my: 2, color: "white", display: "block" }}>Log in</Button>}
-                        </Link>
+                        {loggedIn ?
+                            <>
+                                <Tooltip title="Open settings">
+                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                        <Avatar alt="Remy Sharp" src={profilePhoto} />
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    sx={{ mt: '45px' }}
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUserMenu}
+                                >
+                                    {/* {settings.map((setting) => (
+                                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                                <Typography textAlign="center">{setting}</Typography>
+                                            </MenuItem>
+                                        ))} */}
+
+                                    <Link to='/user' style={{ textDecoration: "none", color: "black" }}>
+                                        <MenuItem onClick={handleCloseUserMenu}>
+                                            <Typography textAlign="center">Profile</Typography>
+                                        </MenuItem>
+                                    </Link>
+                                    <Link to='/' style={{ textDecoration: "none", color: "black" }}>
+                                        <MenuItem onClick={() => signOut(auth)}>
+                                            <Typography textAlign="center">Log out</Typography>
+                                        </MenuItem>
+                                    </Link>
+                                </Menu>
+                            </> : <Link to='/login' style={{ color: "white", display: "block", textDecoration: 'none', fontWeight: 'bold' }}>LOG IN</Link>}
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar >
     );
 }
 

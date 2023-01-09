@@ -19,7 +19,7 @@ const LikedWords: React.FC<LikedWordsProps> = ({ def }) => {
         float: 'right',
         mr: '5px',
         my: '3px',
-        color: liked ? 'black' : 'black',
+        color: liked ? '#81007F' : '#81007F',
     };
 
     const likeTheArticle = async () => {
