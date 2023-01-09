@@ -28,6 +28,10 @@ export interface LikedWordsProps {
     key: string;
 };
 
+// export interface DefinedWordObj {
+//     word: string;
+// }
+
 export interface DefinitionObj {
     definition: string;// znam te nazwy własności, bo spojrzałam sobie do konsoli i rozwinęłam artykuł o indexie 0
     partOfSpeech: string;

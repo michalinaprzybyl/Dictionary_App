@@ -27,13 +27,29 @@ const ProfilePhotoForm = () => {
 
     return (
         <form onSubmit={handleSubmit(submitHandler)}>
-            <Card sx={{ p: "1rem" }}>
+            <Card sx={{ p: "1rem", width: "250px", mx: "auto" }}>
                 <Typography variant='h6' sx={{ fontsize: '1rem' }} align="center">Upload your profile picture</Typography>
-                <Button variant='contained' component="label" sx={{ display: "block", mx: "auto", my: '1rem', alignContent: "center" }}>
+
+                <Button variant='contained' component="label" sx={{
+                    ':hover': {
+                        borderColor: "#81007F",
+                        backgroundColor: "#81007F",
+                    },
+                    display: "block", mx: "auto", my: '1rem', alignContent: "center", backgroundColor: "#81007F"
+                }}>
                     <Typography variant='h6' sx={{ fontSize: '1rem' }} align='center'>Select a file</Typography>
                     <input type="file" accept="image/png, image/jpeg" hidden {...register("profilePhoto", { required: true })} />
                 </Button>
-                <Button variant='contained' sx={{ display: "block", mx: "auto" }} type='submit'>Upload</Button>
+
+                {/* <input type="file" ></input> */}
+
+                <Button variant='contained' sx={{
+                    ':hover': {
+                        borderColor: "#81007F",
+                        backgroundColor: "#81007F",
+                    },
+                    display: "block", mx: "auto", backgroundColor: "#81007F", width: "100%"
+                }} type='submit'>Upload</Button>
             </Card>
         </form>
     )
