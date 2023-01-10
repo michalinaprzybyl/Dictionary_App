@@ -9,17 +9,12 @@ const ProfilePhotoForm = () => {
     const { register, handleSubmit } = useForm<ProfilePhotoFormData>();
 
     const submitHandler = (data: ProfilePhotoFormData) => {
-        // console.log(data);
-
         const photo = data.profilePhoto[0];
         if (auth.currentUser) {
             const storageRef = ref(storage, `/users/${auth.currentUser.uid}/profilePhoto`);
-            // Przykład z końcówką dynamiczną, gdybym chciała dodać kilka zdjęć:
-            // const storageRef = ref(storage, '/users/${auth.currentUser.uid}/${photo.name}');
-
             uploadBytes(storageRef, photo)
                 .then((snapshot) => {
-                    console.log('Successfully uploaded the photo');
+                    alert('Successfully uploaded the photo');
                 })
                 .catch((err) => console.error(err.message));
         }
@@ -53,4 +48,4 @@ const ProfilePhotoForm = () => {
     )
 }
 
-export default ProfilePhotoForm
+export default ProfilePhotoForm 

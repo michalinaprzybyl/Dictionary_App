@@ -15,7 +15,6 @@ function App() {
 
    onAuthStateChanged(auth, (user) => {    // ta f. będzie pilnowała stanu zalogowania już w całej apce
       if (user) {
-         console.log(user);
          setLoggedIn(true);
       } else {
          setLoggedIn(false);

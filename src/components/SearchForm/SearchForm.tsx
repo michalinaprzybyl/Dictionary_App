@@ -12,11 +12,16 @@ const SearchForm: React.FC<SearchFormProps> = ({ setKeyword }) => {
     }
 
     return (
-        <form onSubmit={handleSubmit(submitHandler)} id='formStyle'>
+        <form onSubmit={handleSubmit(submitHandler)} className='form-style'>
             <TextField placeholder='Keyword' sx={{ my: '.5rem', display: 'block', mx: 'auto' }} {...register("keyword", { required: true })} />
-            <Button variant='contained' type='submit' sx={{ display: 'block', mx: 'auto' }}>Search</Button>
+            <Button variant='contained' type='submit' sx={{
+                ':hover': {
+                    borderColor: "#81007F",
+                    backgroundColor: "#81007F",
+                }, display: 'block', mx: 'auto', backgroundColor: "#81007F"
+            }}>Search</Button>
         </form>
     )
 }
 
-export default SearchForm
+export default SearchForm 

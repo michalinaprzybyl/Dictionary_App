@@ -17,26 +17,21 @@ import { auth, storage } from '../../helpers/firebaseConfig';
 import { getDownloadURL, ref } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
 import HomePage from '../HomePage/HomePage';
-
-// const pages = ['Home', 'Search'];
-// const settings = ['Profile', 'Logout'];
+import "./Navbar.css";
 
 const Navbar = () => {
     const loggedIn = useContext(authContext);
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-    const [profilePhoto, setProfilePhoto] = useState<string | undefined>('/')
+    const [profilePhoto, setProfilePhoto] = useState<string | undefined>('/');
 
     useEffect(() => {
         if (loggedIn && auth.currentUser) {
             const storageRef = ref(storage, `/users/${auth.currentUser.uid}/profilePhoto`);
-
             getDownloadURL(storageRef)
-                .then((url) => setProfilePhoto(url))
+                .then((url) => setProfilePhoto(url))                                    // CZEMU TUTAJ DAŁAM URL?????????????????????
                 .catch((err) => console.error(err.message));
-            // lub
-            // .catch((err) => setProfilePhoto(undefined)); do renderowania warunkowego
         }
     }, [loggedIn]);
 
@@ -107,12 +102,12 @@ const Navbar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            <Link to='/' style={{ textDecoration: "none", color: "black" }}>
+                            <Link to='/' className='link-black-style'>
                                 <MenuItem onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">Home</Typography>
                                 </MenuItem>
                             </Link>
-                            <Link to='/search' style={{ textDecoration: "none", color: "black" }}>
+                            <Link to='/search' className='link-black-style'>
                                 <MenuItem onClick={handleCloseNavMenu}>
                                     <Typography textAlign="center">Search</Typography>
                                 </MenuItem>
@@ -137,22 +132,14 @@ const Navbar = () => {
                     >
                         Dictionary App
                     </Typography>
+
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {/* {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
-                        ))} */}
-                        <Link to='/' style={{ textDecoration: "none", color: 'white', display: 'block' }}>
+                        <Link to='/' className='link-white-style'>
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">Home</Typography>
                             </MenuItem>
                         </Link>
-                        <Link to='/search' style={{ textDecoration: "none", color: 'white', display: 'block' }}>
+                        <Link to='/search' className='link-white-style'>
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">Search</Typography>
                             </MenuItem>
@@ -183,24 +170,18 @@ const Navbar = () => {
                                     open={Boolean(anchorElUser)}
                                     onClose={handleCloseUserMenu}
                                 >
-                                    {/* {settings.map((setting) => (
-                                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                                <Typography textAlign="center">{setting}</Typography>
-                                            </MenuItem>
-                                        ))} */}
-
-                                    <Link to='/user' style={{ textDecoration: "none", color: "black" }}>
+                                    <Link to='/user' className='link-black-style'>
                                         <MenuItem onClick={handleCloseUserMenu}>
                                             <Typography textAlign="center">Profile</Typography>
                                         </MenuItem>
                                     </Link>
-                                    <Link to='/' style={{ textDecoration: "none", color: "black" }}>
-                                        <MenuItem onClick={() => signOut(auth)}>
+                                    <Link to='/' className='link-black-style'>
+                                        <MenuItem onClick={() => { signOut(auth); handleCloseUserMenu() }}>
                                             <Typography textAlign="center">Log out</Typography>
                                         </MenuItem>
                                     </Link>
                                 </Menu>
-                            </> : <Link to='/login' style={{ color: "white", display: "block", textDecoration: 'none', fontWeight: 'bold' }}>LOG IN</Link>}
+                            </> : <Link to='/login' className='login-link-style'>LOG IN</Link>}
                     </Box>
                 </Toolbar>
             </Container>
