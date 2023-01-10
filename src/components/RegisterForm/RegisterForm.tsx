@@ -5,40 +5,39 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import "./RegisterForm.css";
 import { useForm } from 'react-hook-form';
 import { RegisterFormData } from '../../helpers/interfaces';
-import HomePage from '../HomePage/HomePage';
-
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
     const { register, handleSubmit } = useForm<RegisterFormData>();
-    const errorCode = "auth/email-already-in-use"
+
+    const navigate = useNavigate();
 
     const submitHandler = ({ email, password, password2 }: RegisterFormData) => {
-        console.log({ email, password, password2 });
-
         if (password === password2) {
             createUserWithEmailAndPassword(auth, email, password)
                 .then(() => {
-                    console.log("Successfully registered");
                     alert("Successfully registered");
-                    <HomePage />;
+                    navigate("/");
                 })
                 .catch((err) => console.error(err.message));
-            // } else if (errorCode === true) {
-            //     alert("Email already in use.");
         } else {
-            console.log("Passwords are not the same");
-            alert("You have entered incorrect data in any of the fields below. Please verify it and correct the errors so that you can register.");
+            alert("You have entered incorrect data in any of the fields below. Please verify it and correct the errors so that you can register. Consider that you may already be registered.");
         }
     }
 
     return (
         <Card sx={{ mt: "1rem", display: "block", mx: "auto", p: "10px", width: "75%" }}>
-            <form id="formStyle" onSubmit={handleSubmit(submitHandler)}>
+            <form id="form-style" onSubmit={handleSubmit(submitHandler)}>
                 <Typography align="center" variant="h2" sx={{ fontSize: "1.5rem" }}>Register new account</Typography>
                 <TextField type="email" placeholder='email' sx={{ display: "block", my: ".5rem", mx: "auto" }} {...register("email", { required: true })} />
                 <TextField type="password" placeholder='password' sx={{ display: "block", my: ".5rem", mx: "auto" }} {...register("password", { required: true })} />
                 <TextField type="password" placeholder='repeat password' sx={{ display: "block", my: ".5rem", mx: "auto" }} {...register("password2", { required: true })} />
-                <Button variant="contained" type="submit" sx={{ display: "block", mx: "auto" }}>Register</Button>
+                <Button variant="contained" type="submit" sx={{
+                    ':hover': {
+                        borderColor: "#81007F",
+                        backgroundColor: "#81007F",
+                    }, display: "block", mx: "auto", backgroundColor: "#81007F"
+                }}>Register</Button>
             </form>
         </Card>
     )

@@ -9,8 +9,6 @@ import { auth, firestore } from '../../helpers/firebaseConfig';
 import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 
 const LikedWords: React.FC<LikedWordsProps> = ({ def }) => {
-    console.log(def);
-
     const [liked, setLiked] = useState(false);
 
     const loggedIn = useContext(authContext);
@@ -37,16 +35,17 @@ const LikedWords: React.FC<LikedWordsProps> = ({ def }) => {
     }
 
     return (
-        <ListItem id='styled'>
+        <ListItem className='list-item-style'>
             <Card variant="outlined" sx={{ width: '70%', padding: '1rem', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <div style={{ marginRight: '3.5%' }}>
-                    <ListItemText sx={{ color: "black" }}>Definition: {def.definition}</ListItemText>
-                    <ListItemText sx={{ color: "black" }}>Part of speech: {def.partOfSpeech}</ListItemText>
+                <div className='div-style'>
+                    <ListItemText>Word: {def.keyword}</ListItemText>
+                    <ListItemText>Definition: {def.definition}</ListItemText>
+                    <ListItemText>Part of speech: {def.partOfSpeech}</ListItemText>
                 </div>
                 <div>
                     {loggedIn &&
                         <>
-                            {liked ? <TurnedInIcon sx={iconStyle} onClick={unlikeTheArticle} /> : <TurnedInNotIcon sx={iconStyle} onClick={likeTheArticle} />}
+                            {liked || def?.selected ? <TurnedInIcon sx={iconStyle} onClick={unlikeTheArticle} /> : <TurnedInNotIcon sx={iconStyle} onClick={likeTheArticle} />}
                         </>
                     }
                 </div>
@@ -55,4 +54,4 @@ const LikedWords: React.FC<LikedWordsProps> = ({ def }) => {
     )
 }
 
-export default LikedWords
+export default LikedWords 

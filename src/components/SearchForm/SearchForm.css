@@ -1,4 +1,5 @@
-#formStyle {
-    display: "flex";
-    flex-direction: "column";
+.form-style {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
 }

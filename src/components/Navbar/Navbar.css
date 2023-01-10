@@ -1,0 +1,17 @@
+.link-black-style {
+    text-decoration: none;
+    color: black;
+}
+
+.link-white-style {
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+.login-link-style {
+    color: white;
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+}

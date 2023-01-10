@@ -1,12 +1,8 @@
-#aStyle {
-    text-decoration: none;
-}
-
-#imgStyle {
-    width: 100%;
-}
-
-#styled {
+.list-item-style {
     display: flex;
     flex-direction: column;
+}
+
+.div-style {
+    margin-right: '3.5%';
 }
