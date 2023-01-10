@@ -5,20 +5,29 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import "./RegisterForm.css";
 import { useForm } from 'react-hook-form';
 import { RegisterFormData } from '../../helpers/interfaces';
+import HomePage from '../HomePage/HomePage';
 
 
 const RegisterForm = () => {
     const { register, handleSubmit } = useForm<RegisterFormData>();
+    const errorCode = "auth/email-already-in-use"
 
     const submitHandler = ({ email, password, password2 }: RegisterFormData) => {
         console.log({ email, password, password2 });
 
         if (password === password2) {
             createUserWithEmailAndPassword(auth, email, password)
-                .then(() => console.log("Successfully registered"))
+                .then(() => {
+                    console.log("Successfully registered");
+                    alert("Successfully registered");
+                    <HomePage />;
+                })
                 .catch((err) => console.error(err.message));
+            // } else if (errorCode === true) {
+            //     alert("Email already in use.");
         } else {
             console.log("Passwords are not the same");
+            alert("You have entered incorrect data in any of the fields below. Please verify it and correct the errors so that you can register.");
         }
     }
 

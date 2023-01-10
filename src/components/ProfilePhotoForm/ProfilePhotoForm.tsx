@@ -27,7 +27,7 @@ const ProfilePhotoForm = () => {
 
     return (
         <form onSubmit={handleSubmit(submitHandler)}>
-            <Card sx={{ p: "1rem", width: "250px", mx: "auto" }}>
+            <Card sx={{ p: "1rem", width: "250px", mx: "auto", mb: "1.5rem" }}>
                 <Typography variant='h6' sx={{ fontsize: '1rem' }} align="center">Upload your profile picture</Typography>
 
                 <Button variant='contained' component="label" sx={{
@@ -40,8 +40,6 @@ const ProfilePhotoForm = () => {
                     <Typography variant='h6' sx={{ fontSize: '1rem' }} align='center'>Select a file</Typography>
                     <input type="file" accept="image/png, image/jpeg" hidden {...register("profilePhoto", { required: true })} />
                 </Button>
-
-                {/* <input type="file" ></input> */}
 
                 <Button variant='contained' sx={{
                     ':hover': {

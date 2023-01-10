@@ -1,7 +1,6 @@
 import { useContext, useState } from 'react'
 import { Typography, Button } from "@mui/material";
 import { auth, firestore } from '../../helpers/firebaseConfig';
-import { signOut } from 'firebase/auth';
 import { UserPageProps } from '../../helpers/interfaces';
 import ProfilePhotoForm from '../ProfilePhotoForm/ProfilePhotoForm';
 import { authContext } from '../../helpers/authContext';
@@ -34,7 +33,7 @@ const UserPage = () => {
                         },
                         display: "block", mx: "auto", my: "1rem", border: "1px solid #81007F", color: "#81007F"
                     }}>Log out</Button> */}
-                    <Typography variant="h3" align="center" sx={{ fontSize: "1.7rem", fontWeight: 400, borderTop: "1px solid #81007F", pt: "1rem", pb: ".5rem" }}>Liked definitions</Typography>
+                    <Typography variant="h3" align="center" sx={{ fontSize: "1.7rem", fontWeight: 400, borderTop: "1px solid #81007F", pt: "1rem", pb: ".5rem" }}>Words to remember</Typography>
                     {likedWords.map((def) => {
                         return <LikedWords def={def} key={def.definition} />
                     })}
