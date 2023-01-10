@@ -19,7 +19,7 @@ import { signOut } from 'firebase/auth';
 import HomePage from '../HomePage/HomePage';
 
 // const pages = ['Home', 'Search'];
-const settings = ['Profile', 'Logout'];
+// const settings = ['Profile', 'Logout'];
 
 const Navbar = () => {
     const loggedIn = useContext(authContext);
@@ -123,7 +123,7 @@ const Navbar = () => {
                         variant="h5"
                         noWrap
                         component="a"
-                        href=""
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },

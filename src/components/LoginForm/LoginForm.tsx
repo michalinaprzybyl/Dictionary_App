@@ -1,4 +1,4 @@
-import React from 'react';
+import Rreact from 'react';
 import { TextField, Button, Typography, Card } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { auth } from '../../helpers/firebaseConfig';
@@ -6,14 +6,13 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import "./LoginForm.css";
 import { LoginFormData } from '../../helpers/interfaces';
 
-
 const LoginForm = () => {
     const { register, handleSubmit } = useForm<LoginFormData>();
 
     const submitHandler = ({ email, password }: LoginFormData) => {
         signInWithEmailAndPassword(auth, email, password)
             .then(() => console.log("Successfully logged in"))
-            .catch((err) => console.error(err.message));
+            .catch((err) => alert("Incorrect email or password"));
     }
 
     return (

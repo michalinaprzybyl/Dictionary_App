@@ -1,36 +1,33 @@
 import { useContext } from 'react';
-import { Typography } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import { authContext } from '../../helpers/authContext';
+import { auth } from '../../helpers/firebaseConfig';
 
 const HomePage = () => {
     const loggedIn = useContext(authContext);
-    // JEŚLI ZALOGOWANY TO 1 WIADOMOŚĆ, A JEŚLI NIE TO DRUGA
+
     return (
-        <>
+        <Card sx={{ mt: "1rem", display: "block", mx: "auto", px: "5%", py: "2%", width: "75%" }}>
             <Typography
                 variant="h3"
                 align="center"
                 sx={{
-                    my: "0.8rem",
+                    pt: ".3rem",
+                    my: "1.3rem",
                     fontSize: "2rem",
-                    fontWeight: "400",
+                    fontWeight: "400"
                 }}>
                 Welcome to Dictionary App!
             </Typography>
-            <p>This platform is used to search the meaning of words for logged-in users. To find the definition you are interested in, please log into your account.</p>
-
-            <Typography
-                variant="h3"
+            <Typography sx={{ textAlign: 'justify', textJustify: 'inter-word' }}>On this page you can check the meanings of English words. Any person can use this dictionary and find the definition that interests them. Remember that only logged-in users have the ability to create their own list of words to remember, which they will find on their profile.</Typography>
+            <Typography variant="h4"
                 align="center"
                 sx={{
-                    my: "0.8rem",
-                    fontSize: "2rem",
+                    my: "1.3rem",
+                    fontSize: "1.5rem",
                     fontWeight: "400",
-                }}>
-                Welcone xyz!
-            </Typography>
-            <p>On this page you can check the meaning of a word. Remember, only logged-in users can create their list of words to remember on their profile.</p>
-        </>
+                }}>Have fun with our dictionary!</Typography>
+        </Card>
     )
 }
 
