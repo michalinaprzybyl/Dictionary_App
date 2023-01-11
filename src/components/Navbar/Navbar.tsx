@@ -8,7 +8,6 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
@@ -16,7 +15,6 @@ import { authContext } from '../../helpers/authContext';
 import { auth, storage } from '../../helpers/firebaseConfig';
 import { getDownloadURL, ref } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
-import HomePage from '../HomePage/HomePage';
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -30,8 +28,7 @@ const Navbar = () => {
         if (loggedIn && auth.currentUser) {
             const storageRef = ref(storage, `/users/${auth.currentUser.uid}/profilePhoto`);
             getDownloadURL(storageRef)
-                .then((url) => setProfilePhoto(url))                                    // CZEMU TUTAJ DAŁAM URL?????????????????????
-                .catch((err) => console.error(err.message));
+                .then((url) => setProfilePhoto(url));                                    // CZEMU TUTAJ DAŁAM URL?????????????????????
         }
     }, [loggedIn]);
 
@@ -50,6 +47,11 @@ const Navbar = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
+
+    const onClickLogOut = () => {
+        signOut(auth);
+        handleCloseUserMenu();
+    }
 
     return (
         <AppBar position="static" sx={{ backgroundColor: "#81007F" }}>
@@ -176,7 +178,7 @@ const Navbar = () => {
                                         </MenuItem>
                                     </Link>
                                     <Link to='/' className='link-black-style'>
-                                        <MenuItem onClick={() => { signOut(auth); handleCloseUserMenu() }}>
+                                        <MenuItem onClick={() => { onClickLogOut }}>
                                             <Typography textAlign="center">Log out</Typography>
                                         </MenuItem>
                                     </Link>

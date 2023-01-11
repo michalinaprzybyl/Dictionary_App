@@ -18,8 +18,7 @@ const RegisterForm = () => {
                 .then(() => {
                     alert("Successfully registered");
                     navigate("/");
-                })
-                .catch((err) => console.error(err.message));
+                });
         } else {
             alert("You have entered incorrect data in any of the fields below. Please verify it and correct the errors so that you can register. Consider that you may already be registered.");
         }
