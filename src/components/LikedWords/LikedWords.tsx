@@ -38,9 +38,9 @@ const LikedWords: React.FC<LikedWordsProps> = ({ def }) => {
         <ListItem className='list-item-style'>
             <Card variant="outlined" sx={{ width: '70%', padding: '1rem', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <div className='div-style'>
-                    <ListItemText>Word: {def.keyword}</ListItemText>
-                    <ListItemText>Definition: {def.definition}</ListItemText>
-                    <ListItemText>Part of speech: {def.partOfSpeech}</ListItemText>
+                    <ListItemText><b>Word:</b> {def.keyword}</ListItemText>
+                    <ListItemText><b>Definition:</b> {def.definition}</ListItemText>
+                    <ListItemText><b>Part of speech:</b> {def.partOfSpeech}</ListItemText>
                 </div>
                 <div>
                     {loggedIn &&

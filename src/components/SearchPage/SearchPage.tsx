@@ -28,8 +28,7 @@ const SearchPage = () => {
             axios.get(`https://wordsapiv1.p.rapidapi.com/words/${keyword}/definitions`, options)
                 .then((response) => {
                     setDefinitions(response.data.definitions);
-                })
-                .catch((err) => console.error(err.message));
+                });
         }
         if (loggedIn && auth.currentUser) {
             onSnapshot(collection(firestore, auth.currentUser.uid), (querySnapshot) => {

@@ -10,13 +10,13 @@ const ProfilePhotoForm = () => {
 
     const submitHandler = (data: ProfilePhotoFormData) => {
         const photo = data.profilePhoto[0];
+
         if (auth.currentUser) {
             const storageRef = ref(storage, `/users/${auth.currentUser.uid}/profilePhoto`);
             uploadBytes(storageRef, photo)
                 .then((snapshot) => {
                     alert('Successfully uploaded the photo');
-                })
-                .catch((err) => console.error(err.message));
+                });
         }
     }
 
