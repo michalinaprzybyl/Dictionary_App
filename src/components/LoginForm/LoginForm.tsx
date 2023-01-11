@@ -18,7 +18,7 @@ const LoginForm = () => {
                 alert("Successfully logged in");
                 navigate("/");
             })
-            .catch((err) => alert("Incorrect email or password"));
+            .catch(() => alert("Incorrect email or password"));
     }
 
     return (

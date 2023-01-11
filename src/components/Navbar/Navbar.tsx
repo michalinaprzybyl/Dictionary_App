@@ -28,7 +28,7 @@ const Navbar = () => {
         if (loggedIn && auth.currentUser) {
             const storageRef = ref(storage, `/users/${auth.currentUser.uid}/profilePhoto`);
             getDownloadURL(storageRef)
-                .then((url) => setProfilePhoto(url));                                    // CZEMU TUTAJ DAŁAM URL?????????????????????
+                .then((url) => setProfilePhoto(url));
         }
     }, [loggedIn]);
 
@@ -178,7 +178,7 @@ const Navbar = () => {
                                         </MenuItem>
                                     </Link>
                                     <Link to='/' className='link-black-style'>
-                                        <MenuItem onClick={() => { onClickLogOut }}>
+                                        <MenuItem onClick={onClickLogOut}>
                                             <Typography textAlign="center">Log out</Typography>
                                         </MenuItem>
                                     </Link>
