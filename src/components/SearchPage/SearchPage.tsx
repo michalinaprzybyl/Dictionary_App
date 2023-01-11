@@ -28,7 +28,8 @@ const SearchPage = () => {
             axios.get(`https://wordsapiv1.p.rapidapi.com/words/${keyword}/definitions`, options)
                 .then((response) => {
                     setDefinitions(response.data.definitions);
-                });
+                })
+                .catch(() => alert("We can not find this word."));
         }
         if (loggedIn && auth.currentUser) {
             onSnapshot(collection(firestore, auth.currentUser.uid), (querySnapshot) => {
@@ -44,7 +45,6 @@ const SearchPage = () => {
             <SearchForm setKeyword={setKeyword} />
             <List sx={{ width: '100%', bgcolor: 'background.paper', alignContent: 'center' }}>
                 {definitions.length !== 0 && definitions.map((def: DefinitionObj) => {
-                    // tu potzrebuję dostęp do listy słówek usera
                     def.selected = !!userWords.find((userword) => userword.definition === def.definition);
                     def.keyword = keyword;
                     return <LikedWords def={def} key={def.definition} />
@@ -54,4 +54,4 @@ const SearchPage = () => {
     )
 }
 
-export default SearchPage
+export default SearchPage 
