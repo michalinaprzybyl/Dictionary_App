@@ -11,9 +11,9 @@ import SearchPage from './components/SearchPage/SearchPage';
 import { authContext } from './helpers/authContext';
 
 function App() {
-   const [loggedIn, setLoggedIn] = useState(false); // false bo na pocz user nie jest zalogowany
+   const [loggedIn, setLoggedIn] = useState(false);
 
-   onAuthStateChanged(auth, (user) => {    // ta f. będzie pilnowała stanu zalogowania już w całej apce
+   onAuthStateChanged(auth, (user) => {
       if (user) {
          setLoggedIn(true);
       } else {
